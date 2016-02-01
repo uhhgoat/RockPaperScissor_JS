@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Rock Paper Scissor</title>
+        
+        <script type = "text/javascript">
+			PAPER = 1, SCISSOR = 2, ROCK = 3;
+			DRAW = 0, PLAYER = 1, COMPUTER = 2;
+			
+			WEAPONS = new Array("", "paper", "scissor", "rock");
+			
+			playerWins = 0;
+			computerWins = 0;
+		
+			function runGame(playerSelection)
+			{
+				var computerSelection = Math.floor(Math.random() * 3) + 1;
+				result = determineWinner(playerSelection, computerSelection);
+			
+				displayResult(result, playerSelection, computerSelection);
+			}
+			
+			function determineWinner(playerSelection, computerSelection)
+			{
+				if (computerSelection == PAPER && playerSelection == ROCK)
+				{
+					computerWins++;
+					return COMPUTER;
+				}
+					
+				if (computerSelection == ROCK && playerSelection == PAPER)
+				{
+					playerWins++;
+					return PLAYER;
+				}
+
+				if (computerSelection > playerSelection)
+				{
+					computerWins++;
+					return COMPUTER
+				}
+
+				if (playerSelection > computerSelection)
+				{
+					playerWins++;
+					return PLAYER;
+				}
+
+				return DRAW;
+			}
+			
+			function displayResult(result, playerSelection, computerSelection)
+			{
+				resultOutput[0].innerHTML = "You played " + WEAPONS[playerSelection] + " and the computer played " + WEAPONS[computerSelection] + ".";
+				
+				if (result == PLAYER)
+				{
+					resultOutput[1].innerHTML = "You win the round.";
+				}
+				
+				if (result == COMPUTER)
+				{
+					resultOutput[1].innerHTML = "The computer wins the round.";
+				}
+				
+				if (result == DRAW)
+				{
+					resultOutput[1].innerHTML = "The round is a draw.";
+				}
+				
+				resultOutput[2].innerHTML = playerWins;
+				resultOutput[3].innerHTML = computerWins;
+			}
+		</script>
+	</head>
+		
+	<body>
+    	<div>
+			<span id = "msgdiv">Select Your Weapon</span>
+			<button onclick = "runGame(ROCK)">Rock</button>
+			<button onclick = "runGame(PAPER)">Paper</button>
+			<button onclick = "runGame(SCISSOR)">Scissor</button>
+		</div>
+        
+		<div id = "resultdiv">
+			<span></span><br />
+			<span></span><br />
+			Player Wins: <span></span><br />
+			Computer Wins: <span></span><br />
+		</div>
+        
+        <script type = "text/javascript">
+			resultDiv = document.getElementById("resultdiv");
+			resultOutput = resultDiv.getElementsByTagName("span");
+		</script>
+	</body>
+</html>
